@@ -1,10 +1,23 @@
 1. 在Java语言中，所有的变量在使用前必须声明；
 
-2. `javac -d . *.java`
+2. 当在一个源文件中定义多个类，并且还有import语句和package语句时，要特别注意这些规则。
 
-3. **类型判断**： `instanceof`
+   - 一个源文件中只能有一个 public 类
+   - 一个源文件可以有多个非 public 类
+   - 源文件的名称应该和 public 类的类名保持一致。例如：源文件中 public 类的类名是 Employee，那么源文件应该命名为`Employee.java`。
+   - 如果一个类定义在某个包中，那么 package 语句应该在源文件的首行。
+   - 如果源文件包含 import 语句，那么应该放在 package 语句和类定义之间。如果没有 package 语句，那么 import 语句应该在源文件中最前面。
+   - import 语句和 package 语句对源文件中定义的所有类都有效。在同一源文件中，不能给不同的类不同的包声明。
 
-4. `java`的修饰符
+3. 在 Java 中使用 final 关键字来修饰常量。
+
+4. 类变量被声明为 `public static final` 类型时，类变量名称一般建议使用大写字母。如果静态变量不是 public 和 final 类型，其命名方式与实例变量以及局部变量的命名方式一致。
+
+5. `javac -d . *.java`
+
+6. **类型判断**： `instanceof`
+
+7. `java`的修饰符
 
    1. 访问修饰符
 
@@ -41,7 +54,7 @@
       
       - synchronized 、 volatile
 
-5. String 创建的字符串存储在公共池中，而 new 创建的字符串对象在堆上：
+8. String 创建的字符串存储在公共池中，而 new 创建的字符串对象在堆上：
 
    1. ```java
       String s1 = "Runoob";              // String 直接创建
@@ -55,7 +68,7 @@
 
       如果需要对字符串做很多修改，那么应该选择使用 [StringBuffer & StringBuilder 类](https://www.runoob.com/java/java-stringbuffer.html)。
 
-6. `java`数组
+9. `java`数组
 
    1. ```java
       class TestIt
@@ -109,7 +122,7 @@
       // 原因: 数组作为参数是引用传递 ，在 doIt 方法中可以修改数组的值 。
       ```
 
-7. **继承**
+10. **继承**
 
    1. 继承可以使用 `extends 和 implements` 这两个关键字来实现继承，而且所有的类都是继承于 `java.lang.Object`，当一个类没有继承的两个关键字，则默认继承 `Object`（这个类在 `java.lang` 包中，所以不需要 `import`）祖先类。
 
@@ -173,78 +186,78 @@
           修饰符(public/private/default/protected) final 返回值类型 方法名(){/*方法体*/}
           ```
 
-8. `Override/Overload`**重新和重载**
+11. `Override/Overload`**重新和重载**
 
-   1. 方法的重写(Overriding)和重载(Overloading)是java多态性的不同表现，重写是父类与子类之间多态性的一种表现，重载可以理解成多态的具体表现形式。
+    1. 方法的重写(Overriding)和重载(Overloading)是java多态性的不同表现，重写是父类与子类之间多态性的一种表现，重载可以理解成多态的具体表现形式。
 
-      - (1)方法重载是一个类中定义了多个方法名相同,而他们的参数的数量不同或数量相同而类型和次序不同,则称为方法的重载(Overloading)。
-      - (2)方法重写是在子类存在方法与父类的方法的名字相同,而且参数的个数与类型一样,返回值也一样的方法,就称为重写(Overriding)。
-      - (3)方法重载是一个类的多态性表现,而方法重写是子类与父类的一种多态性表现。
+       - (1)方法重载是一个类中定义了多个方法名相同,而他们的参数的数量不同或数量相同而类型和次序不同,则称为方法的重载(Overloading)。
+       - (2)方法重写是在子类存在方法与父类的方法的名字相同,而且参数的个数与类型一样,返回值也一样的方法,就称为重写(Overriding)。
+       - (3)方法重载是一个类的多态性表现,而方法重写是子类与父类的一种多态性表现。
 
-   2. @Override是Java5的元数据，自动加上去的一个标志，告诉你说下面这个方法是从父类/接口 继承过来的，需要你重写一次，这样就可以方便你阅读，也不怕会忘记
+    2. @Override是Java5的元数据，自动加上去的一个标志，告诉你说下面这个方法是从父类/接口 继承过来的，需要你重写一次，这样就可以方便你阅读，也不怕会忘记
 
-      - @Override是伪代码,表示重写(当然不写也可以),不过写上有如下好处: 
-        1>可以当注释用,方便阅读 
+       - @Override是伪代码,表示重写(当然不写也可以),不过写上有如下好处: 
+         1>可以当注释用,方便阅读 
 
-        2>编译器可以给你验证@Override下面的方法名是否是你父类中所有的,如果没有则报错
+         2>编译器可以给你验证@Override下面的方法名是否是你父类中所有的,如果没有则报错
 
-      - 使用该标记是为了增强程序在编译时候的检查，如果该方法并不是一个覆盖父类的方法，在编译时编译器就会报告错误
+       - 使用该标记是为了增强程序在编译时候的检查，如果该方法并不是一个覆盖父类的方法，在编译时编译器就会报告错误
 
-   3. **多态**
+    3. **多态**
 
-      1. 当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误；如果有，再去调用子类的同名方法。
+       1. 当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误；如果有，再去调用子类的同名方法。
 
-      2. 多态的好处：可以使程序有良好的扩展，并可以对所有类的对象进行通用处理。
+       2. 多态的好处：可以使程序有良好的扩展，并可以对所有类的对象进行通用处理。
 
-      3. ```java
-         public class Test {
-             public static void main(String[] args) {
-               show(new Cat());  // 以 Cat 对象调用 show 方法
-               show(new Dog());  // 以 Dog 对象调用 show 方法
-                         
-               Animal a = new Cat();  // 向上转型  
-               a.eat();               // 调用的是 Cat 的 eat
-               Cat c = (Cat)a;        // 向下转型  
-               c.work();        // 调用的是 Cat 的 work
-           }  
-                     
-             public static void show(Animal a)  {
-               a.eat();  
-                 // 类型判断
-                 if (a instanceof Cat)  {  // 猫做的事情 
-                     Cat c = (Cat)a;  
-                     c.work();  
-                 } else if (a instanceof Dog) { // 狗做的事情 
-                     Dog c = (Dog)a;  
-                     c.work();  
-                 }  
-             }  
-         }
+       3. ```java
+          public class Test {
+              public static void main(String[] args) {
+                show(new Cat());  // 以 Cat 对象调用 show 方法
+                show(new Dog());  // 以 Dog 对象调用 show 方法
+                          
+                Animal a = new Cat();  // 向上转型  
+                a.eat();               // 调用的是 Cat 的 eat
+                Cat c = (Cat)a;        // 向下转型  
+                c.work();        // 调用的是 Cat 的 work
+            }  
+                      
+              public static void show(Animal a)  {
+                a.eat();  
+                  // 类型判断
+                  if (a instanceof Cat)  {  // 猫做的事情 
+                      Cat c = (Cat)a;  
+                      c.work();  
+                  } else if (a instanceof Dog) { // 狗做的事情 
+                      Dog c = (Dog)a;  
+                      c.work();  
+                  }  
+              }  
+          }
+           
+          abstract class Animal {  
+              abstract void eat();  
+          }  
+            
+          class Cat extends Animal {  
+              public void eat() {  
+                  System.out.println("吃鱼");  
+              }  
+              public void work() {  
+                  System.out.println("抓老鼠");  
+              }  
+          }  
+            
+          class Dog extends Animal {  
+              public void eat() {  
+                  System.out.println("吃骨头");  
+              }  
+              public void work() {  
+                  System.out.println("看家");  
+              }  
+          }
+          ```
+
           
-         abstract class Animal {  
-             abstract void eat();  
-         }  
-           
-         class Cat extends Animal {  
-             public void eat() {  
-                 System.out.println("吃鱼");  
-             }  
-             public void work() {  
-                 System.out.println("抓老鼠");  
-             }  
-         }  
-           
-         class Dog extends Animal {  
-             public void eat() {  
-                 System.out.println("吃骨头");  
-             }  
-             public void work() {  
-                 System.out.println("看家");  
-             }  
-         }
-         ```
-
-         
 
 
 
